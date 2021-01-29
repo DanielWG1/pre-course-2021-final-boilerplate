@@ -3,8 +3,31 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css">
     <title>My TODO List</title>
     <script src="utils.js"></script>
   </head>
-  <body></body>
+  <body>
+    <section id="conrol-section" class="header">
+      <h2>My To Do List</h2>
+      <span id="counter"></span>
+      <button id="sort-button">sort</button><br>      
+      <input type="text" id="text-input" placeholder="What is you'r next task?">
+      <select name="priority-selector" id="priority-selector">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+      </select>
+      <button id="add-button">Add</button>
+    </section> 
+  
+  <section id="view-section">
+        <ul id="task-list">
+        </ul>
+      </section>
+      <script src="./main.js"></script>
+      <script>init()</script>
+  </body>
 </html>
