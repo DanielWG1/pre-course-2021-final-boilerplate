@@ -1,3 +1,4 @@
+
 function init () {
     let addButton = document.getElementById("add-button");
     addButton.addEventListener('click', createTask);
@@ -10,6 +11,7 @@ function init () {
 
     let taskList = document.getElementById("task-list");
     taskList.addEventListener('click', clickOnTask);
+    loadData();
     refresh();
 }
 
@@ -17,7 +19,7 @@ function refresh() {
     let taskList = document.getElementById("task-list");
     taskList.innerHTML = '';
 
-    for (task of dataTasks) {
+    for (task of dataTasks.taskArray) {
         createUiTask(task)
     }
     updateCounter();
@@ -55,7 +57,7 @@ function sortTasks() {
 
 function updateCounter() {
     let counterSpan = document.getElementById("counter");
-    counterSpan.innerText = dataTasks.length + ' TODOs';
+    counterSpan.innerText = dataTasks.taskArray.length + ' TODOs';
 }
 
 function clickOnTask(event){
@@ -70,12 +72,10 @@ function clickOnTask(event){
 function deleteTask(event) {
     let deleteArea = event.target;
     let li = deleteArea.parentElement;
-    let id = li.id;
-    removeTask(id);
+    removeTask(li.id);
     refresh();
  }
 
- // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> change here
 function toggleCompleteTask(event) {
     let target = event.target;
     do {
@@ -85,8 +85,7 @@ function toggleCompleteTask(event) {
         target = target.parentElement;
     } while (target != 'BODY') // Should never get to BODY, just for safety.
     let li = target;
-    let id = li.id;
-    toggleIsActive(id);
+    toggleIsActive(li.id);
     refresh();
 }
 
@@ -141,15 +140,15 @@ function createUiTask(dataTask) {
     todoPriority.appendChild(priorityText);
     todoContainer.appendChild(todoPriority);  
 
-    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> change here
     // Is Active
     // check if task isActive and give class if not
     let isActive = dataTask.isActive;
-     if (isActive === false) {
+     if (!isActive) {
          li.classList.add('checked');
      } else {
          li.classList.remove('checked');
      }
+
     // Delete Button
     let deleteArea = document.createElement("SPAN");
     deleteArea.setAttribute('deletearea', 'deletearea');
