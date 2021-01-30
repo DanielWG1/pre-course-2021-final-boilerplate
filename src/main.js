@@ -1,9 +1,3 @@
-// Every todo item should have a "container" div with class todo-container that will contain 3 sub-elements:
-
-// An element with a class todo-text with the text of the todo task
-// An element with a class todo-created-at that will hold the creation time of the task in a SQL format
-// An element for showing the numeric priority value of the task, with a class todo-priority
-
 function init () {
     let addButton = document.getElementById("add-button");
     addButton.addEventListener('click', createTask);
@@ -17,14 +11,13 @@ function init () {
     let taskList = document.getElementById("task-list");
     taskList.addEventListener('click', clickOnTask);
     refresh();
-    //console.log(dataTasks)
 }
 
 function refresh() {
     let taskList = document.getElementById("task-list");
     taskList.innerHTML = '';
 
-    for (task of dataTasks.taskList) {
+    for (task of dataTasks) {
         createUiTask(task)
     }
     updateCounter();
@@ -56,14 +49,13 @@ function format2digits (d) {
 }
 
 function sortTasks() {
-    dataTasks.sort();
+    sort();
     refresh();
 }
 
 function updateCounter() {
-    let taskList = document.getElementById("task-list");
     let counterSpan = document.getElementById("counter");
-    counterSpan.innerText = dataTasks.size() + ' TODOs';
+    counterSpan.innerText = dataTasks.length + ' TODOs';
 }
 
 function clickOnTask(event){
@@ -73,27 +65,29 @@ function clickOnTask(event){
     } else if (target.hasAttribute('deletearea')) {
         deleteTask(event)
     }
-    //console.log(dataTasks)
 }
 
 function deleteTask(event) {
     let deleteArea = event.target;
     let li = deleteArea.parentElement;
     let id = li.id;
-    dataTasks.removeTask(id);
-    li.remove();
-    updateCounter();
+    removeTask(id);
+    refresh();
  }
 
+ // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> change here
 function toggleCompleteTask(event) {
     let target = event.target;
     do {
         if (target.tagName === 'LI'){
-            target.classList.toggle('checked');
-            return;
+            break;
         }
         target = target.parentElement;
     } while (target != 'BODY') // Should never get to BODY, just for safety.
+    let li = target;
+    let id = li.id;
+    toggleIsActive(id);
+    refresh();
 }
 
 function createTask() {
@@ -104,10 +98,9 @@ function createTask() {
     }
     let taskPriority = document.getElementById("priority-selector").value;
     let time = new Date().getTime();
-    let dataTask = new Task(taskText, taskPriority, time, true);
-    dataTasks.addTask(dataTask);
-    createUiTask(dataTask);
-    //console.log(dataTasks)
+    let dataTask = new Task(taskText, taskPriority, time);
+    addTask(dataTask)
+    refresh();
 }
 
 function createUiTask(dataTask) {
@@ -123,7 +116,7 @@ function createUiTask(dataTask) {
     todoContainer.classList.add("todo-container");
     li.appendChild(todoContainer)
 
-    // Task text
+    // Text
     let todoText =  document.createElement("DIV");
     todoText.setAttribute('taskarea', 'taskarea');
     todoText.classList.add("todo-text");
@@ -148,6 +141,15 @@ function createUiTask(dataTask) {
     todoPriority.appendChild(priorityText);
     todoContainer.appendChild(todoPriority);  
 
+    // >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> change here
+    // Is Active
+    // check if task isActive and give class if not
+    let isActive = dataTask.isActive;
+     if (isActive === false) {
+         li.classList.add('checked');
+     } else {
+         li.classList.remove('checked');
+     }
     // Delete Button
     let deleteArea = document.createElement("SPAN");
     deleteArea.setAttribute('deletearea', 'deletearea');
@@ -158,5 +160,4 @@ function createUiTask(dataTask) {
 
     document.getElementById("text-input").value = "";
     document.getElementById("task-list").appendChild(li);
-    updateCounter();
 }

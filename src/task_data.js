@@ -1,51 +1,53 @@
-function Tasks () {
-    this.lastIdCounter = 0;
-    this.taskList = [];
 
-    this.addTask = function(task) {
-        this.lastIdCounter++;
-        task.id = 'task-id-' + this.lastIdCounter;
-        this.taskList.push(task)
-        return task.id;
-    };
+let lastIdCounter = 0;
+let dataTasks = [];
 
-    this.removeTask = function(id) {
-        for (i in this.taskList) {
-            if (this.taskList[i].id === id) {
-                this.taskList.splice (i, 1);
-                return;
-            }
-        }
-    };
 
-    this.sort = function(){
-        this.taskList.sort(function(a, b){return b.priority - a.priority})
-    }
-
-    this.size = function(){
-        return this.taskList.length;
-    }
-
-}
-
-function Task (text, priority, createdAt, isActive) {
+function Task (text, priority, createdAt) {
     this.id = null;
     this.text = text;
     this.priority = priority;
     this.createdAt = createdAt;
-    this.isActive = isActive; 
+    this.isActive = true;
 }
 
-let dataTasks = new Tasks();
+function addTask (task) {
+    lastIdCounter++;
+    task.id = 'task-id-' + lastIdCounter;
+    dataTasks.push(task)
+    return task.id;
+}
 
-//let t = new Task('text', 2, 123456, true);
-//dataTasks.addTask(t)
-// t = new Task('text', 2, 123456, true);
-// dataTasks.addTask(t)
-// t = new Task('text', 2, 123456, true);
-// dataTasks.addTask(t)
+function removeTask(id) {
+    for (i in dataTasks) {
+        if (dataTasks[i].id === id) {
+            dataTasks.splice (i, 1);
+            return;
+        }
+    }
+}
 
-// dataTasks.removeTask('task-id-2')
+function toggleIsActive(id) {
+    for (task of dataTasks) {
+        if (task.id === id) {
+            task.isActive = !task.isActive;
+            return;
+        }
+    }
+}
+
+function sort (){
+    dataTasks.sort(function(a, b){return b.priority - a.priority})
+}
+
+// let t = new Task('text', 2, 123456);
+// addTask(t)
+// t = new Task('text', 2, 123456);
+// addTask(t)
+// t = new Task('text', 2, 123456);
+// addTask(t)
 // console.log(dataTasks);
-//dataTasks.sort();
-console.log(dataTasks.size());
+// toggleIsActive('task-id-1');
+// console.log(dataTasks);
+// dataTasks.sort();
+// console.log(dataTasks);
