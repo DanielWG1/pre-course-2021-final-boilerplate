@@ -47,8 +47,12 @@ function sort () {
     updateServer(dataTasks, BIN_ID);
 }
 
-function loadData() {
-    dataTasks = getFromServer(BIN_ID);
+function setDataTaks (json) {
+    dataTasks = json['record'];
+}
+
+function loadData(callBack) {
+    getFromServer(BIN_ID).then(setDataTaks).then(callBack);
 }
 
 async function updateServer(obj, binId) {
@@ -66,7 +70,6 @@ async function updateServer(obj, binId) {
         throw "error" + error;
     }  
     const json = await response.json(); 
-    //console.log(json)
     return json;
 }
 
@@ -80,11 +83,8 @@ async function getFromServer(binId) {
     const response = await fetch("https://api.jsonbin.io/v3/b/"+binId, options); 
     if(!response.ok) {
         throw "Could not get to server data.";
-    }
-    
+    }   
     const json = await response.json();
-    //console.log(json);
-
     return json;
 }
 

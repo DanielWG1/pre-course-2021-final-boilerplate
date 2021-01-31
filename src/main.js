@@ -11,14 +11,12 @@ function init () {
 
     let taskList = document.getElementById("task-list");
     taskList.addEventListener('click', clickOnTask);
-    loadData();
     refresh();
 }
 
 function refresh() {
     let taskList = document.getElementById("task-list");
     taskList.innerHTML = '';
-
     for (task of dataTasks.taskArray) {
         createUiTask(task)
     }
