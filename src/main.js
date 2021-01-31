@@ -6,9 +6,6 @@ function init () {
     let sortButton = document.getElementById("sort-button");
     sortButton.addEventListener('click', sortTasks);
 
-    let refreshButton = document.getElementById("refresh-button");
-    refreshButton.addEventListener('click', refresh);
-
     let taskList = document.getElementById("task-list");
     taskList.addEventListener('click', clickOnTask);
     refresh();
@@ -125,7 +122,7 @@ function createUiTask(dataTask) {
     let todoCreatedAt = document.createElement("DIV");
     todoCreatedAt.setAttribute('taskarea', 'taskarea');
     todoCreatedAt.classList.add("todo-created-at");
-    let taskDateText = taskDate(dataTask.createdAt);
+    let taskDateText = taskDate(dataTask.date);
     let dateTextNode = document.createTextNode(taskDateText);
     todoCreatedAt.appendChild(dateTextNode);
     todoContainer.appendChild(todoCreatedAt);  

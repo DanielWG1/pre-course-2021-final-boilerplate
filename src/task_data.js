@@ -6,11 +6,11 @@ function Tasks () {
     this.taskArray = [];
 }
 
-function Task (text, priority, createdAt) {
+function Task (text, priority, date) {
     this.id = null;
     this.text = text;
     this.priority = priority;
-    this.createdAt = createdAt;
+    this.date = date;
     this.isActive = true;
 }
 
@@ -55,7 +55,15 @@ function loadData(callBack) {
     getFromServer(BIN_ID).then(setDataTaks).then(callBack);
 }
 
+function uuidv4() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+      return v.toString(16);
+    });
+}
+
 async function updateServer(obj, binId) {
+    console.log(obj)
     const options = {
         method: "PUT",
         headers: {
@@ -88,23 +96,4 @@ async function getFromServer(binId) {
     return json;
 }
 
-////////////////// TESTS /////////////////////////////////
-
-// let t = new Task('text', 2, 123456);
-// addTask(t)
-// t = new Task('text', 2, 123456);
-// addTask(t)
-// t = new Task('text', 2, 123456);
-// addTask(t)
-// console.log(dataTasks);
-// toggleIsActive('task-id-1');
-// console.log(dataTasks);
-// dataTasks.sort();
-// console.log(dataTasks);
-
-
-// function testPersist(){
-//     //let testTask = new Task('text', 1009, 11111);
-//     return updateServer(testTask, BIN_ID)
-// }
 

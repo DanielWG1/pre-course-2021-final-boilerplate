@@ -8,10 +8,9 @@
     <script src="utils.js"></script>
   </head>
   <body>
-    <section id="conrol-section" class="header">
+    <section id="control-section" class="header">
       <h2>My To Do List</h2>
       <span id="counter">... TODOs</span>
-      <button id="refresh-button">Refresh</button><br>
       <input type="text" id="text-input" placeholder="What is you'r next task?">
       <select name="priority-selector" id="priority-selector">
             <option value="1">1</option>
@@ -24,12 +23,11 @@
       <button id="sort-button">sort by priority</button>
     </section> 
   
-  <section id="view-section">
-        <ul id="task-list">
-        </ul>
-      </section>
-      <script src="./main.js"></script>
-      <script src="./task_data.js"></script>
-      <script>loadData(init)</script>
+    <section id="view-section">
+      <ul id="task-list"></ul>
+    </section>
+    <script src="./main.js"></script>
+    <script src="./task_data.js"></script>
+    <script>loadData(init)</script>
   </body>
 </html>
