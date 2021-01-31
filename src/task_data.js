@@ -1,13 +1,8 @@
+const EMPTY = 'EMPTY'
 const BIN_ID = "6015a4446426b448ee0eb89d";
-let dataTasks;// = new Tasks();
-
-function Tasks () {
-    this.lastIdCounter = 0;
-    this.taskArray = [];
-}
+let taskArray = [];
 
 function Task (text, priority, date) {
-    this.id = null;
     this.text = text;
     this.priority = priority;
     this.date = date;
@@ -15,56 +10,52 @@ function Task (text, priority, date) {
 }
 
 function addTask (task) {
-    dataTasks.lastIdCounter++;
-    task.id = 'task-id-' + dataTasks.lastIdCounter;
-    dataTasks.taskArray.push(task)
-    updateServer(dataTasks, BIN_ID);
-    return task.id;
+    taskArray.push(task)
+    updateServer(taskArray, BIN_ID);
 }
 
-function removeTask(id) {
-    for (i in dataTasks.taskArray) {
-        if (dataTasks.taskArray[i].id === id) {
-            dataTasks.taskArray.splice (i, 1);
-            updateServer(dataTasks, BIN_ID);
-            return;
-        }
-    }
+function removeTask(i) {
+    taskArray.splice (i, 1);
+    updateServer(taskArray, BIN_ID);
 }
 
-function toggleIsActive(id) {
-    for (task of dataTasks.taskArray) {
-        if (task.id === id) {
-            task.isActive = !task.isActive;
-            updateServer(dataTasks, BIN_ID);
-            return;
-        }
-    }
+function toggleIsActive(i) {
+    taskArray[i].isActive = !taskArray[i].isActive;
+    updateServer(taskArray, BIN_ID);
 }
 
 function sort () {
-    dataTasks.taskArray.sort(function(a, b){return b.priority - a.priority})
-    updateServer(dataTasks, BIN_ID);
+    taskArray.sort(function(a, b){return b.priority - a.priority})
+    updateServer(taskArray, BIN_ID);
 }
 
-function setDataTaks (json) {
-    dataTasks = json['record'];
+// VERY UGLY FUNCTION!
+function updateServer(obj, binId) {
+    let array;
+    if (obj.length === 0){
+        array = [EMPTY];
+    } else {
+        array = obj;
+    }
+    httpPUT(array, binId)
 }
 
 function loadData(callBack) {
-    getFromServer(BIN_ID).then(setDataTaks).then(callBack);
+    httpGET(BIN_ID).then(setDataTaks).then(callBack);
 }
 
-function uuidv4() {
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-      var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
-      return v.toString(16);
-    });
+// ANOTHER UGLY FUNCTION!
+function setDataTaks (json) {
+    if (json['record'][0] === EMPTY) {
+        taskArray = [];
+    }
+    else {
+        taskArray = json['record'];
+    }
 }
 
-async function updateServer(obj, binId) {
-    console.log(obj)
-    const options = {
+async function httpPUT(obj, binId) {
+   const options = {
         method: "PUT",
         headers: {
             "Content-Type" : "application/json",
@@ -81,7 +72,7 @@ async function updateServer(obj, binId) {
     return json;
 }
 
-async function getFromServer(binId) {
+async function httpGET(binId) {
     const options = {
         method: "GET",
         headers: {

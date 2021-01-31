@@ -9,13 +9,14 @@ function init () {
     let taskList = document.getElementById("task-list");
     taskList.addEventListener('click', clickOnTask);
     refresh();
+    document.body.style.cursor='default';
 }
 
 function refresh() {
     let taskList = document.getElementById("task-list");
     taskList.innerHTML = '';
-    for (task of dataTasks.taskArray) {
-        createUiTask(task)
+    for (i in taskArray) {
+        createUiTask(taskArray[i], i)
     }
     updateCounter();
 }
@@ -52,7 +53,7 @@ function sortTasks() {
 
 function updateCounter() {
     let counterSpan = document.getElementById("counter");
-    counterSpan.innerText = dataTasks.taskArray.length + ' TODOs';
+    counterSpan.innerText = 'You have ' + taskArray.length + ' tasks left';
 }
 
 function clickOnTask(event){
@@ -65,8 +66,7 @@ function clickOnTask(event){
 }
 
 function deleteTask(event) {
-    let deleteArea = event.target;
-    let li = deleteArea.parentElement;
+    let li = event.target.parentElement;
     removeTask(li.id);
     refresh();
  }
@@ -97,15 +97,15 @@ function createTask() {
     refresh();
 }
 
-function createUiTask(dataTask) {
+function createUiTask(dataTask, index) {
 
     // LI
     let li = document.createElement("li");
     li.setAttribute('taskarea', 'taskarea');
-    li.id = dataTask.id;
+    li.id = index;
 
     // Task Container
-    let todoContainer =  document.createElement("DIV");
+    let todoContainer = document.createElement("DIV");
     todoContainer.setAttribute('taskarea', 'taskarea');
     todoContainer.classList.add("todo-container");
     li.appendChild(todoContainer)
@@ -137,8 +137,7 @@ function createUiTask(dataTask) {
 
     // Is Active
     // check if task isActive and give class if not
-    let isActive = dataTask.isActive;
-     if (!isActive) {
+     if (!dataTask.isActive) {
          li.classList.add('checked');
      } else {
          li.classList.remove('checked');

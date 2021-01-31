@@ -10,7 +10,8 @@
   <body>
     <section id="control-section" class="header">
       <h2>My To Do List</h2>
-      <span id="counter">... TODOs</span>
+      <span id="counter">... Tasks</span>
+      <span class="prioritySelect">Select task priority</span><br>
       <input type="text" id="text-input" placeholder="What is you'r next task?">
       <select name="priority-selector" id="priority-selector">
             <option value="1">1</option>
@@ -18,7 +19,7 @@
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
-      </select>
+      </select> 
       <button id="add-button">Add</button>
       <button id="sort-button">sort by priority</button>
     </section> 
@@ -28,6 +29,9 @@
     </section>
     <script src="./main.js"></script>
     <script src="./task_data.js"></script>
-    <script>loadData(init)</script>
+    <script>
+      document.body.style.cursor = 'wait';
+      loadData(init)
+    </script>
   </body>
 </html>
