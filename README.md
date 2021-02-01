@@ -1,5 +1,5 @@
 ## pre-course final project:
- link to the solution: https://github.com/DanielWG1/pre-course-2021-final-boilerplate
+ link to the solution: https://github.com/DanielWG1/pre-course-2021-final-boilerplate/src
  In my project I made a persistant to-do list. In my project you can add as many tasks as you want to your list. 
  You can set the priority of each task and afterwards you can sort them by their priority. 
  Also you can delete your tasks or even mark them as done without deleting them.
