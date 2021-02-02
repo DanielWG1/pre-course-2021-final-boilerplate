@@ -29,7 +29,6 @@ function sort () {
     updateServer(taskArray, BIN_ID);
 }
 
-// VERY UGLY FUNCTION!
 function updateServer(obj, binId) {
     let array;
     if (obj.length === 0){
@@ -44,7 +43,6 @@ function loadData(callBack) {
     httpGET(BIN_ID).then(setDataTaks).then(callBack);
 }
 
-// ANOTHER UGLY FUNCTION!
 function setDataTaks (json) {
     if (json['record'][0] === EMPTY) {
         taskArray = [];
