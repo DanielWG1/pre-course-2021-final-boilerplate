@@ -1,4 +1,6 @@
 
+
+// function when loading page
 function init () {
     let addButton = document.getElementById("add-button");
     addButton.addEventListener('click', createTask);
@@ -12,6 +14,7 @@ function init () {
     document.body.style.cursor='default';
 }
 
+//delets everything and gets it from the server 
 function refresh() {
     let taskList = document.getElementById("task-list");
     taskList.innerHTML = '';
@@ -21,6 +24,8 @@ function refresh() {
     updateCounter();
 }
 
+
+// date function
 function taskDate(time) {
     let date = new Date(time);
     let ss = date.getSeconds(); 
@@ -38,6 +43,7 @@ function taskDate(time) {
     return today;
 }
 
+// SQL date function
 function format2digits (d) {
     if (d < 10) {
         return '0'+d;
@@ -46,16 +52,20 @@ function format2digits (d) {
     }
 }
 
+// sort function
 function sortTasks() {
     sort();
     refresh();
 }
+
 
 function updateCounter() {
     let counterSpan = document.getElementById("counter");
     counterSpan.innerText = 'You have ' + taskArray.length + ' tasks left';
 }
 
+
+// Delete or completed task function
 function clickOnTask(event){
     let target = event.target;
     if (target.hasAttribute('taskarea')) {
@@ -84,6 +94,8 @@ function toggleCompleteTask(event) {
     refresh();
 }
 
+
+// create task function
 function createTask() {
     let taskText = document.getElementById("text-input").value;
     if (taskText === '') {
@@ -97,6 +109,8 @@ function createTask() {
     refresh();
 }
 
+
+// Create UI function 
 function createUiTask(dataTask, index) {
 
     // LI
