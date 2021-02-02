@@ -15,7 +15,8 @@
  - The cursor becomes a "spinner" when loading page and returns to default afterwards.
 
 
- ## Resources  :
+
+## Resources
  - For the styling: https://www.w3schools.com/howto/howto_js_todolist.asp 
  - For the spinner cursor: https://www.w3schools.com/jsref/prop_style_cursor.asp
 
