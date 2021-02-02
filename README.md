@@ -8,6 +8,13 @@
 
  The project is separated to four sections: HTML, CSS, MAIN JS which belongs mostly to the UI and a DATA JS tha belongs to the browser (with the MAIN JS).
 
+## List of bonuses
+ - Works with JSONbin and everything is persistant.
+ - Can delete tasks.
+ - Can mark tasks as done or undone.
+ - The cursor becomes a "spinner" when loading page and returns to default afterwards.
+
+
  ## Resources  :
  - For the styling: https://www.w3schools.com/howto/howto_js_todolist.asp 
  - For the spinner cursor: https://www.w3schools.com/jsref/prop_style_cursor.asp
